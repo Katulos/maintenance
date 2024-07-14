@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- Equipment Form -->
+        <record id="equipment_form_view" model="ir.ui.view">
+            <field name="name">maintenance.equipment.form.inherit</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form" />
+            <!-- <field name="groups_id" eval="[(4, ref('asset.group_mro_user'))]"/> -->
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="before">
+                    <field name="is_lift" />
+                </xpath>
+
+                <xpath expr="//field[@name='serial_no']" position="after">
+                    <field
+                        name="capacity"
+                        attrs="{'invisible':[('is_lift','=',False)]}"
+                    />
+                    <field name="stops" attrs="{'invisible':[('is_lift','=',False)]}" />
+                </xpath>
+
+                <xpath expr="//field[@name='warranty_date']" position="after">
+                    <field
+                        name="is_dispatched"
+                        attrs="{'invisible':[('is_lift','=',False)]}"
+                    />
+                    <field
+                        name="passport"
+                        attrs="{'invisible':[('is_lift','=',False)]}"
+                    />
+                </xpath>
+
+                <xpath
+                    expr="//page[@name='maintenance']/group[1]/group[1]"
+                    position="after"
+                >
+                    <group attrs="{'invisible':[('is_lift','=',False)]}">
+                        <field name="require_inspection" />
+                        <field
+                            name="date_next_inspection"
+                            attrs="{'invisible':[('require_inspection','=',False)]}"
+                        />
+                        <field
+                            name="inspection_company_id"
+                            attrs="{'invisible':[('require_inspection','=',False)]}"
+                        />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

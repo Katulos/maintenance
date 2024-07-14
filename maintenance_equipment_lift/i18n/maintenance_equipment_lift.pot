@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maintenance_equipment_lift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-14 15:11+0000\n"
+"PO-Revision-Date: 2024-07-14 15:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__passport__1
+msgid "At Customer"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__passport__2
+msgid "At The Manufacturer"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__capacity
+msgid "Capacity"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__passport__3
+msgid "In A Service Company"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__inspection_company_id
+msgid "Inspection Company"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__is_dispatched
+msgid "Is Dispatched"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__is_lift
+msgid "Is Lift"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__date_next_inspection
+msgid "Next Inspection"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: code:addons/maintenance_equipment_lift/models/maintenance.py:0
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__is_dispatched__0
+#, python-format
+msgid "No"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__is_dispatched__1
+msgid "Not Required"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__is_dispatched__3
+msgid "On Local Dispatcher"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__is_dispatched__4
+msgid "On Local Reception"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__is_dispatched__2
+msgid "On Remote Dispatcher"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__passport
+msgid "Passport"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__require_inspection
+msgid "Require Inspection"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields,field_description:maintenance_equipment_lift.field_maintenance_equipment__stops
+msgid "Stops"
+msgstr ""
+
+#. module: maintenance_equipment_lift
+#: model:ir.model.fields.selection,name:maintenance_equipment_lift.selection__maintenance_equipment__passport__0
+msgid "Unknown"
+msgstr ""
