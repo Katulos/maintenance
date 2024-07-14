@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[maintenance_equipment_lift](maintenance_equipment_lift/) | 14.0.1.0.0 |  | This module adds elevator equipment specific fields
+[maintenance_equipment_lift](maintenance_equipment_lift/) | 14.0.1.0.0 | [![Katulos](https://github.com/Katulos.png?size=30px)](https://github.com/Katulos) | This module adds elevator equipment specific fields
 
 [//]: # (end addons)
 

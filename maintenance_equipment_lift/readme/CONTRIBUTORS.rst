@@ -1,1 +1,1 @@
-- Katulos <katulos@protonmail.com> (<http://github.com/Katulos>)
+* Katulos <katulos@protonmail.com> (<http://github.com/Katulos>)

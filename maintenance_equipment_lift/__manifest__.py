@@ -11,4 +11,5 @@
         "views/maintenance.xml",
     ],
     "demo": [],
+    "maintainers": ["Katulos"],
 }
