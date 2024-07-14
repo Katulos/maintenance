@@ -57,6 +57,7 @@ repos:
           - --repo-name=maintenance
           - --if-source-changed
           - --keep-source-digest
+      - id: oca-gen-addons-table
       - id: oca-gen-external-dependencies
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
     rev: v0.0.25

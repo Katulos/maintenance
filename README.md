@@ -17,7 +17,11 @@
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[maintenance_equipment_lift](maintenance_equipment_lift/) | 14.0.1.0.0 |  | This module adds elevator equipment specific fields
 
 [//]: # (end addons)
 
