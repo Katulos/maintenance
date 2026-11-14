@@ -1,0 +1,6 @@
+ftl-extract
+mypy
+nox
+pre-commit
+python-semantic-release
+ruff

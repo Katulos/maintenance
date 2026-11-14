@@ -1,0 +1,49 @@
+services:
+  devcontainer:
+    env_file:
+      - .env
+    environment:
+      - PGHOST=${POSTGRES_HOST}
+      - PGPORT=${POSTGRES_PORT}
+      - PGUSER=${POSTGRES_USER}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+      - PGDATABASE=${POSTGRES_DB}
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - WORKSPACE=${WORKSPACE}
+    command: sleep infinity
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+    volumes:
+      - ..:${WORKSPACE}:cached
+    depends_on:
+      - db
+
+  db:
+    env_file:
+      - .env
+    image: postgres:15-alpine
+    volumes:
+      - db:/var/lib/postgresql/data:z
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - default
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+volumes:
+  db:
+
+networks:
+  default:
