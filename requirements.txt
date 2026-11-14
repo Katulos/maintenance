@@ -2,6 +2,7 @@ annotated-doc==0.0.6
 annotated-types==0.8.0
 anyio==4.16.0
 asyncclick==8.4.2.1
+asyncpg==0.32.0
 cffi==2.1.1 ; platform_python_implementation != 'PyPy'
 click==8.5.1
 colorama==0.4.6 ; sys_platform == 'win32'
@@ -10,6 +11,7 @@ dishka==1.10.1
 dynaconf==3.3.5
 ecdsa==0.19.2
 fastapi==0.162.7
+greenlet==3.5.6
 h11==0.16.0
 idna==3.20
 opentelemetry-api==1.45.2
@@ -21,6 +23,7 @@ pydantic-core==2.50.4
 python-jose==3.5.0
 rsa==4.9.1
 six==1.17.0
+sqlalchemy==2.1.8
 starlette==1.10.0
 structlog==26.1.0
 typing-extensions==4.16.0
