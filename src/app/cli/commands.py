@@ -3,15 +3,17 @@ import logging
 
 import asyncclick as click
 import uvicorn
+from dishka.integrations.fastapi import setup_dishka
 
-from ..api.api import fast_app
+from ..api import fast_app
 from ..core.config import settings
 from ..core.logging import setup_logger
+from ..infrastructure.di.container import get_async_container
 
 
 @click.group()
 async def cli() -> None:
-    debug = settings.get("core. debug")
+    debug = settings.get("core.debug")
     if debug:
         setup_logger(loglevel=logging.DEBUG)
     else:
@@ -26,6 +28,8 @@ async def run() -> None:
 @run.command()
 async def api() -> None:
     try:
+        _container = get_async_container()
+        setup_dishka(container=_container, app=fast_app)
         config = uvicorn.Config(
             app=fast_app,
             host=settings.get("api.bind"),
