@@ -44,6 +44,11 @@ settings.validators.register(
         is_type_of=bool,
         default=False,
     ),
+    ###
+    # API
+    Validator("api.bind", is_type_of=str, default="127.0.0.1"),
+    Validator("api.port", is_type_of=int, default=8000),
+    Validator("api.enable_access_log", is_type_of=bool, default=True),
 )
 
 try:
