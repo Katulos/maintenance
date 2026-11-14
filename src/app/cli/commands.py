@@ -1,7 +1,10 @@
+import asyncio
 import logging
 
 import asyncclick as click
+import uvicorn
 
+from ..api.api import fast_app
 from ..core.config import settings
 from ..core.logging import setup_logger
 
@@ -21,5 +24,19 @@ async def run() -> None:
 
 
 @run.command()
-async def hello() -> None:
-    logging.info("Hello World!")
+async def api() -> None:
+    try:
+        config = uvicorn.Config(
+            app=fast_app,
+            host=settings.get("api.bind"),
+            port=settings.get("api.port"),
+            access_log=settings.get("api.enable_access_log"),
+            log_config=None,
+        )
+
+        server = uvicorn.Server(config=config)
+        await server.serve()
+    except KeyboardInterrupt:
+        pass
+    except asyncio.CancelledError:
+        pass
