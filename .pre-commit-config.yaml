@@ -96,6 +96,7 @@ repos:
           )
         additional_dependencies:
           - "asyncclick>=8.4.2.1"
+          - "dynaconf>=3.3.5"
           - "orjson>=3.13.0"
           - "structlog>=26.1.0"
 
