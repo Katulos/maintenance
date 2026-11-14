@@ -17,6 +17,7 @@ classifiers = [
 ]
 requires-python = ">= 3.11"
 dependencies = [
+    "asyncclick>=8.4.2.1",
 ]
 
 [tool.setuptools.dynamic]
