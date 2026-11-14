@@ -6,6 +6,8 @@ import uvicorn
 from dishka.integrations.fastapi import setup_dishka
 
 from ..api import fast_app
+from ..api.exceptions import include_exception_handlers
+from ..api.v1.routes import include_routers as include_v1_routes
 from ..core.config import settings
 from ..core.logging import setup_logger
 from ..infrastructure.di.container import get_async_container
@@ -30,6 +32,10 @@ async def api() -> None:
     try:
         _container = get_async_container()
         setup_dishka(container=_container, app=fast_app)
+
+        include_exception_handlers(fast_app)
+        include_v1_routes(fast_app)
+
         config = uvicorn.Config(
             app=fast_app,
             host=settings.get("api.bind"),
