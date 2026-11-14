@@ -95,6 +95,7 @@ repos:
               ^tests/
           )
         additional_dependencies:
+          - "alembic>=1.20.1"
           - "asyncclick>=8.4.2.1"
           - "cryptography>=50.0.2"
           - "dishka>=1.10.1"
