@@ -2,10 +2,12 @@ import logging
 
 import asyncclick as click
 
+from ..core.logging import setup_logger
+
 
 @click.group()
 async def cli() -> None:
-    logging.basicConfig(level=logging.INFO)
+    setup_logger(loglevel=logging.INFO)
 
 
 @cli.group()

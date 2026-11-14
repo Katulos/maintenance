@@ -96,6 +96,9 @@ repos:
           )
         additional_dependencies:
           - "asyncclick>=8.4.2.1"
+          - "orjson>=3.13.0"
+          - "structlog>=26.1.0"
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.17.5
     hooks:
