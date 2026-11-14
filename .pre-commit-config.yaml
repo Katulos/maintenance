@@ -11,6 +11,7 @@ repos:
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.12.9
     hooks:
+      - id: uv-lock
       - id: uv-export
         args:
           - --format=requirements.txt
@@ -59,7 +60,7 @@ repos:
         description: Forces to replace line ending by the UNIX 'lf' character.
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
+    rev: v3.22.0
     hooks:
       - id: pyupgrade
 
@@ -82,7 +83,7 @@ repos:
       - id: add-trailing-comma
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v2.3.1
+    rev: v2.4.1
     hooks:
       - id: mypy
         args:
@@ -94,26 +95,13 @@ repos:
               ^tests/
           )
         additional_dependencies:
-          - "adaptix>=3.0.0b11"
-          - "aiogram>=3.21.0"
-          - "aiogram-dialog>=2.4.0"
-          - "aiojobs>=1.4.0"
-          - "alembic>=1.16.4"
-          - "arq>=0.25.0"
-          - "click>=8.2.1"
-          - "cryptography>=45.0.6"
-          - "dishka>=1.6.0"
+          - "asyncclick>=8.4.2.1"
           - "dynaconf>=3.3.5"
-          - "fastapi>=0.116.1"
-          - "fluent-runtime>=0.4.0"
-          - "odoorpc>=0.10.1"
-          - "orjson>=3.11.1"
-          - "pyyaml>=6.0.2"
-          - "sqlalchemy[postgresql-asyncpg]>=2.0.42"
+          - "orjson>=3.13.0"
           - "structlog>=26.1.0"
-          - "uvicorn>=0.35.0"
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.5
+    rev: v0.17.5
     hooks:
       - id: ruff-check
         args:
