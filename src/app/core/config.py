@@ -44,6 +44,11 @@ settings.validators.register(
         is_type_of=bool,
         default=False,
     ),
+    Validator(
+        "core.secret_key",
+        is_type_of=str,
+        must_exist=True,
+    ),
     ###
     # API
     Validator("api.bind", is_type_of=str, default="127.0.0.1"),
