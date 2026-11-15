@@ -49,6 +49,13 @@ settings.validators.register(
     Validator("api.bind", is_type_of=str, default="127.0.0.1"),
     Validator("api.port", is_type_of=int, default=8000),
     Validator("api.enable_access_log", is_type_of=bool, default=True),
+    # Database
+    Validator(
+        "db.database_url",
+        is_type_of=str,
+        default="postgresql+asyncpg://devel:devel@db:5432/devel",
+    ),
+    Validator("db.echo", is_type_of=bool, default=False),
 )
 
 try:
