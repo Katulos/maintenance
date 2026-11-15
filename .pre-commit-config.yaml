@@ -95,6 +95,7 @@ repos:
               ^tests/
           )
         additional_dependencies:
+          - "alembic>=1.20.1"
           - "asyncclick>=8.4.2.1"
           - "cryptography>=50.0.2"
           - "dishka>=1.10.1"
@@ -102,6 +103,7 @@ repos:
           - "fastapi>=0.162.7"
           - "orjson>=3.13.0"
           - "python-jose>=3.5.0"
+          - "sqlalchemy[postgresql-asyncpg]>=2.0.42"
           - "structlog>=26.1.0"
           - "uvicorn>=0.54.0"
 
