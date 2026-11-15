@@ -5,3 +5,5 @@ from .mixin import (
     ExternalSyncMixin,
     UpdatedAtMixin,
 )
+from .token import Token
+from .user import User
