@@ -10,6 +10,7 @@ from alembic.config import Config
 from dishka.integrations.fastapi import setup_dishka
 
 from ..api import fast_app
+from ..api.auth.routes import include_routers as include_auth_routes
 from ..api.exceptions import include_exception_handlers
 from ..api.v1.routes import include_routers as include_v1_routes
 from ..core.config import settings
@@ -65,8 +66,9 @@ async def api() -> None:
         _container = get_async_container()
         setup_dishka(container=_container, app=fast_app)
 
-        include_exception_handlers(fast_app)
+        include_auth_routes(fast_app)
         include_v1_routes(fast_app)
+        include_exception_handlers(fast_app)
 
         config = uvicorn.Config(
             app=fast_app,

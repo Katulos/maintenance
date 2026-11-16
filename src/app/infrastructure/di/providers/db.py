@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import (
 
 from ....core.config import settings
 from ....core.interfaces.dal import Committer
+from ...db.dao import DAO
 
 
 class DbProvider(Provider):
@@ -51,3 +52,7 @@ class DbProvider(Provider):
             expire_on_commit=False,
         ) as session:
             yield session
+
+    @provide(scope=Scope.REQUEST)
+    async def provide_dao(self, session: AsyncSession) -> DAO:
+        return DAO(session)

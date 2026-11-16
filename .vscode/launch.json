@@ -2,6 +2,28 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Run API",
+            "type": "python",
+            "request": "launch",
+            "python": "${command:python.interpreterPath}",
+            "console": "integratedTerminal",
+            "module": "app",
+            "args": ["run", "api"],
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "Python: Debug API",
+            "type": "debugpy",
+            "request": "launch",
+            "stopOnEntry": false,
+            "python": "${command:python.interpreterPath}",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "module": "app",
+            "args": ["run", "api"],
+            "cwd": "${workspaceRoot}"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
