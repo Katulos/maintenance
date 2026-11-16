@@ -17,4 +17,8 @@ class UserRequest:
 class UserResponse:
     id: uuid.UUID
     username: str
+
+
+@dataclass
+class UserWithPassword(UserResponse):
     password: str

@@ -14,6 +14,7 @@ class ApplicationError(Exception):
     message: str
 
     code: ClassVar[str]
+    status_code: ClassVar[int] = 500
 
     @property
     def meta(self) -> dict[str, Any] | None:
@@ -27,5 +28,6 @@ class ApplicationError(Exception):
 @application_error
 class AccessDeniedError(ApplicationError):
     code: ClassVar[str] = "ACCESS_DENIED"
+    status_code: ClassVar[int] = 403
 
     message: str = "Access denied"

@@ -43,7 +43,7 @@ class Token(BaseDao[models.Token]):
         token_obj = result.scalar_one_or_none()
         if token_obj:
             return token_obj.to_dto()
-        return token_obj
+        return None
 
     async def delete(self, token: dto.TokenRequest) -> None:
         await self.session.execute(

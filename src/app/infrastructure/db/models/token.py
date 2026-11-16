@@ -46,6 +46,5 @@ class Token(Base, CreatedAtMixin):
             user=dto.UserResponse(
                 id=self.user.id,
                 username=self.user.username,
-                password=self.user.password,
             ),
         )

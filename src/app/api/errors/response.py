@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import Any, ClassVar, cast
 
 import orjson
 
@@ -12,14 +12,14 @@ class ErrorResponse:
     message: str
     meta: dict[str, Any] | None
 
-    def to_json(self):
+    def to_json(self) -> dict[str, Any]:
         data = {
             "code": self.code,
             "message": self.message,
             "meta": self.meta,
         }
         dump = orjson.dumps(data)
-        return orjson.loads(dump)
+        return cast(dict[str, Any], orjson.loads(dump))
 
 
 @application_error

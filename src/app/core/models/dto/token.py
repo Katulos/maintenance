@@ -28,3 +28,20 @@ class TokenApiResponse:
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+@dataclass
+class RefreshTokenCreate:
+    token_hash: str
+    user_id: uuid.UUID
+    expires_at: datetime
+
+
+@dataclass
+class RefreshTokenResponse:
+    id: uuid.UUID
+    user_id: uuid.UUID
+    token_hash: str
+    expires_at: datetime
+    created_at: datetime
+    revoked_at: datetime | None

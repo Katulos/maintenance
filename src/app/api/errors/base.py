@@ -15,6 +15,7 @@ class UnauthorizedReason(Enum):
 @application_error
 class UnauthorizedError(ApplicationError):
     code: ClassVar[str] = "UNAUTHORIZED"
+    status_code: ClassVar[int] = 401
     reason: UnauthorizedReason
     header: str | None = None
     message: str = "Unauthorized"

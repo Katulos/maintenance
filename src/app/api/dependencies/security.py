@@ -1,6 +1,8 @@
 import base64
+import hashlib
 import hmac
 import os
+import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any
 
@@ -8,11 +10,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from dishka.integrations.fastapi import FromDishka, inject
 from fastapi import Depends, HTTPException, status
-from fastapi.security import (
-    HTTPAuthorizationCredentials,
-    HTTPBearer,
-    OAuth2PasswordBearer,
-)
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
 from ...core.config import settings
@@ -97,7 +95,7 @@ def create_access_token(
 
     to_encode.update({"exp": expire, "type": "access"})
 
-    encoded_jwt = jwt.encode(
+    encoded_jwt: str = jwt.encode(
         to_encode,
         settings.get("core.secret_key"),
         algorithm=settings.get("security.algorithm"),
@@ -105,15 +103,30 @@ def create_access_token(
     return encoded_jwt
 
 
-def create_refresh_token(data: dict[Any, Any]) -> str:
-    to_encode = data.copy()
-
-    expire = datetime.now(UTC) + timedelta(
+def get_refresh_token_expiry() -> datetime:
+    return datetime.now(UTC) + timedelta(
         days=settings.get("security.refresh_token_expire_days"),
     )
-    to_encode.update({"exp": expire, "type": "refresh"})
 
-    encoded_jwt = jwt.encode(
+
+def create_refresh_token(
+    data: dict[Any, Any],
+    expires_at: datetime | None = None,
+) -> str:
+    to_encode = data.copy()
+
+    if expires_at is None:
+        expires_at = get_refresh_token_expiry()
+
+    to_encode.update(
+        {
+            "exp": expires_at,
+            "type": "refresh",
+            "jti": str(uuid.uuid4()),
+        },
+    )
+
+    encoded_jwt: str = jwt.encode(
         to_encode,
         settings.get("core.secret_key"),
         algorithm=settings.get("security.algorithm"),
@@ -121,27 +134,35 @@ def create_refresh_token(data: dict[Any, Any]) -> str:
     return encoded_jwt
 
 
-def decode_token(token: str) -> dict[str, Any] | None:
+def hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def decode_token(
+    token: str,
+    *,
+    expected_type: str | None = None,
+) -> dict[str, Any] | None:
     try:
-        payload = jwt.decode(
+        payload: dict[str, Any] = jwt.decode(
             token,
             settings.get("core.secret_key"),
             algorithms=[settings.get("security.algorithm")],
         )
-        return payload
-    except JWTError:
+    except (JWTError, TypeError, ValueError):
         return None
+
+    if expected_type is not None and payload.get("type") != expected_type:
+        return None
+
+    return payload
 
 
 @inject
 async def get_current_user(
-    credentials: Annotated[
-        HTTPAuthorizationCredentials,
-        Depends(HTTPBearer()),
-    ],
+    token_value: Annotated[str, Depends(oauth2_scheme)],
     dao: FromDishka[DAO],
-) -> dto.UserResponse | None:
-    token_value = credentials.credentials
+) -> dto.UserResponse:
     token = await dao.token.get(dto.TokenRequest(access_token=token_value))
     if not token:
         raise HTTPException(
@@ -149,6 +170,7 @@ async def get_current_user(
             detail="Invalid token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
     expire_minutes = settings.get("security.access_token_expire_minutes")
     if token.created_at < datetime.now(UTC) - timedelta(
         minutes=expire_minutes,
@@ -159,6 +181,13 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Token expired",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if decode_token(token_value, expected_type="access") is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
             headers={"WWW-Authenticate": "Bearer"},
         )
 

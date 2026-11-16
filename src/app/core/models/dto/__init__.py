@@ -1,7 +1,16 @@
-from .token import TokenApiResponse, TokenCreate, TokenRequest, TokenResponse
-from .user import UserCreate, UserRequest, UserResponse
+from .token import (
+    RefreshTokenCreate,
+    RefreshTokenResponse,
+    TokenApiResponse,
+    TokenCreate,
+    TokenRequest,
+    TokenResponse,
+)
+from .user import UserCreate, UserRequest, UserResponse, UserWithPassword
 
 __all__ = [
+    "RefreshTokenCreate",
+    "RefreshTokenResponse",
     "TokenCreate",
     "TokenRequest",
     "TokenResponse",
@@ -9,4 +18,5 @@ __all__ = [
     "UserCreate",
     "UserRequest",
     "UserResponse",
+    "UserWithPassword",
 ]
