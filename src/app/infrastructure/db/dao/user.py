@@ -35,8 +35,7 @@ class User(BaseDao[models.User]):
         result = stmt.scalar_one_or_none()
         if result:
             return result.to_dto()
-        else:
-            return result
+        return result
 
     async def get_by_id(self, id: Any) -> dto.UserResponse | None:
         stmt = await self.session.execute(

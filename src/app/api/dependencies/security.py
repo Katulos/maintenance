@@ -149,8 +149,9 @@ async def get_current_user(
             detail="Invalid token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    if token.created_at < datetime.now() - timedelta(
-        days=settings.get("security.access_token_expire_minutes"),
+    expire_minutes = settings.get("security.access_token_expire_minutes")
+    if token.created_at < datetime.now(UTC) - timedelta(
+        minutes=expire_minutes,
     ):
         await dao.token.delete(
             dto.TokenRequest(access_token=token.access_token),

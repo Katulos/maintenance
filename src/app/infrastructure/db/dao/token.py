@@ -31,7 +31,7 @@ class Token(BaseDao[models.Token]):
 
         return token_obj.to_dto()
 
-    async def get(self, token: dto.TokenRequest) -> dto.TokenResponse:
+    async def get(self, token: dto.TokenRequest) -> dto.TokenResponse | None:
         stmt = (
             sa.select(models.Token)
             .options(orm.joinedload(models.Token.user))
@@ -40,8 +40,10 @@ class Token(BaseDao[models.Token]):
             )
         )
         result = await self.session.execute(stmt)
-        token_obj = result.scalar_one()
-        return token_obj.to_dto()
+        token_obj = result.scalar_one_or_none()
+        if token_obj:
+            return token_obj.to_dto()
+        return token_obj
 
     async def delete(self, token: dto.TokenRequest) -> None:
         await self.session.execute(
