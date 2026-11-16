@@ -30,11 +30,15 @@ class User(Base, CreatedUpdatedAtMixin):
 
     password: orm.Mapped[str] = orm.mapped_column(sa.String(), nullable=False)
 
-    tokens: orm.Mapped["Token"] = orm.relationship(
+    tokens: orm.Mapped[list["Token"]] = orm.relationship(
         "Token",
         back_populates="user",
         cascade="all, delete-orphan",
     )
 
-    def to_dto(self) -> dto.User:
-        return dto.User(username=self.username, password=self.password)
+    def to_dto(self) -> dto.UserResponse:
+        return dto.UserResponse(
+            id=self.id,
+            username=self.username,
+            password=self.password,
+        )

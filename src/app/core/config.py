@@ -61,6 +61,21 @@ settings.validators.register(
         default="postgresql+asyncpg://devel:devel@db:5432/devel",
     ),
     Validator("db.echo", is_type_of=bool, default=False),
+    # Security
+    Validator("security.algorithm", is_type_of=str, default="HS256"),
+    Validator(
+        "security.access_token_expire_minutes",
+        is_type_of=int,
+        default=30,
+    ),
+    Validator(
+        "security.refresh_token_expire_days",
+        is_type_of=int,
+        default=7,
+    ),
+    Validator("security.iterations", is_type_of=int, default=600000),
+    Validator("security.salt_length", is_type_of=int, default=32),
+    Validator("security.key_length", is_type_of=int, default=32),
 )
 
 try:

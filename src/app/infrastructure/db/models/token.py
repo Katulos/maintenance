@@ -36,7 +36,16 @@ class Token(Base, CreatedAtMixin):
     user: orm.Mapped["User"] = orm.relationship(
         "User",
         back_populates="tokens",
+        lazy="joined",
     )
 
-    def to_dto(self) -> dto.Token:
-        return dto.Token(access_token=self.access_token)
+    def to_dto(self) -> dto.TokenResponse:
+        return dto.TokenResponse(
+            access_token=self.access_token,
+            created_at=self.created_at,
+            user=dto.UserResponse(
+                id=self.user.id,
+                username=self.user.username,
+                password=self.user.password,
+            ),
+        )

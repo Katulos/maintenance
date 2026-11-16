@@ -66,9 +66,9 @@ async def api() -> None:
         _container = get_async_container()
         setup_dishka(container=_container, app=fast_app)
 
-        include_exception_handlers(fast_app)
         include_auth_routes(fast_app)
         include_v1_routes(fast_app)
+        include_exception_handlers(fast_app)
 
         config = uvicorn.Config(
             app=fast_app,
