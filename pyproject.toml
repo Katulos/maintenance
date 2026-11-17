@@ -41,7 +41,7 @@ mcli = "app.cli.commands:cli"
 where = ["src"]
 
 [tool.setuptools.package-data]
-app= ['locales/*']
+app= ['locales/*', 'app/infrastructure/db/alembic/*']
 
 [build-system]
 requires = ["setuptools"]
