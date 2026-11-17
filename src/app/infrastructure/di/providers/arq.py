@@ -43,7 +43,7 @@ class ArqProvider(Provider):
         settings.cron_jobs = [
             cron(
                 dummy_job,
-                name="Sync Odoo",
+                name="Dummy Job",
                 # hour=_at_every_x_hours(1),
                 minute=_at_every_x_minutes(1),
                 run_at_startup=True,

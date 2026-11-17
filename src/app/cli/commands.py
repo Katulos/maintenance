@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import sys
 from collections.abc import Callable
 from typing import Any
 
@@ -7,6 +8,7 @@ import asyncclick as click
 import uvicorn
 from alembic import command
 from alembic.config import Config
+from arq import Worker
 from dishka.integrations.fastapi import setup_dishka
 
 from ..api import fast_app
@@ -62,8 +64,8 @@ async def run() -> None:
 
 @run.command()
 async def api() -> None:
+    _container = get_async_container()
     try:
-        _container = get_async_container()
         setup_dishka(container=_container, app=fast_app)
 
         include_auth_routes(fast_app)
@@ -80,10 +82,31 @@ async def api() -> None:
 
         server = uvicorn.Server(config=config)
         await server.serve()
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, asyncio.exceptions.CancelledError):
         pass
-    except asyncio.CancelledError:
+    except Exception as e:
+        logging.error(e)
+        sys.exit(1)
+    finally:
+        await _container.close()
+
+
+@run.command()
+async def scheduler() -> None:
+    _container = get_async_container()
+
+    worker = await _container.get(Worker)
+
+    try:
+        await worker.async_run()
+    except (KeyboardInterrupt, asyncio.exceptions.CancelledError):
         pass
+    except Exception as e:
+        logging.error(e)
+        sys.exit(1)
+    finally:
+        await _container.close()
+        await worker.close()
 
 
 @migrations.command()
