@@ -1,0 +1,3 @@
+core:
+  secret_key: "my-cool-secret-key"
+
