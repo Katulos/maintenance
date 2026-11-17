@@ -4,6 +4,7 @@ from dishka import AsyncContainer, make_async_container
 from dishka.integrations.fastapi import FastapiProvider
 
 from .providers.api import APICommandProvider
+from .providers.arq import ArqProvider
 from .providers.db import DbProvider
 
 
@@ -12,6 +13,7 @@ def get_async_container() -> AsyncContainer:
         FastapiProvider(),
         APICommandProvider(),
         DbProvider(),
+        ArqProvider(),
     ]
     container = make_async_container(*providers)
     return container

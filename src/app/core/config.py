@@ -61,6 +61,12 @@ settings.validators.register(
         default="postgresql+asyncpg://devel:devel@db:5432/devel",
     ),
     Validator("db.echo", is_type_of=bool, default=False),
+    # Redis
+    Validator("redis.host", is_type_of=str, default="redis"),
+    Validator("redis.port", is_type_of=int, default=6379),
+    Validator("redis.db", is_type_of=int, default=0),
+    Validator("redis.username", is_type_of=str | None, default=None),
+    Validator("redis.password", is_type_of=str | None, default=None),
     # Security
     Validator("security.algorithm", is_type_of=str, default="HS256"),
     Validator(
