@@ -1,6 +1,4 @@
-import logging
 from collections.abc import AsyncIterable
-from typing import Any
 
 from arq import Worker, cron
 from arq.connections import ArqRedis, RedisSettings, create_pool
@@ -15,6 +13,7 @@ from dishka import (
 from dishka.integrations.arq import setup_dishka
 
 from ....core.config import settings
+from ...scheduler import jobs
 
 
 def _at_every_x_minutes(x: int, start: int = 0, end: int = 59) -> set[int]:
@@ -23,10 +22,6 @@ def _at_every_x_minutes(x: int, start: int = 0, end: int = 59) -> set[int]:
 
 def _at_every_x_hours(x: int, start: int = 0, end: int = 23) -> set[int]:
     return {*list(range(start, end, x))}
-
-
-async def dummy_job(ctx: Any) -> None:
-    logging.info("Run dummy job")
 
 
 class WorkerSettings(WorkerSettingsBase):
@@ -42,7 +37,7 @@ class ArqProvider(Provider):
         settings.redis_pool = pool
         settings.cron_jobs = [
             cron(
-                dummy_job,
+                jobs.dummy_job,
                 name="Dummy Job",
                 # hour=_at_every_x_hours(1),
                 minute=_at_every_x_minutes(1),
@@ -51,7 +46,7 @@ class ArqProvider(Provider):
                 max_tries=5,
             ),
         ]
-        settings.functions = [dummy_job]
+        settings.functions = [jobs.dummy_job]
 
         return settings
 
